@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Image } from 'react-native';
-import LogoBigSvg from './Logo-big.svg';
-import IconAction from './visibility_24px.svg';
+import LogoBigSvg from './assets/Logo-big.svg';
+import IconAction from './assets/visibility_24px.svg';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -17,46 +18,48 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcomeText}>Welcome to</Text>
-      <Text style={styles.appText}>Desk Reserv</Text>
-      <View style={styles.imageContainer}>
-        <LogoBigSvg width={120} height={120} />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <View style={styles.passwordInput}>
+    <LinearGradient colors={['#D1DAFF', 'white']} style={styles.background}>
+      <View style={styles.container}>
+        <Text style={styles.welcomeText}>Welcome to</Text>
+        <Text style={styles.appText}>Desk Reserv</Text>
+        <View style={styles.imageContainer}>
+          <LogoBigSvg width={120} height={120} />
+        </View>
+        <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Password"
-            secureTextEntry={!showPassword}
-            value={password}
-            onChangeText={setPassword}
+            placeholder="E-mail"
+            value={email}
+            onChangeText={setEmail}
           />
-          <View style={styles.iconAction}>
-            <IconAction width={20} height={20} onPress={() => setShowPassword(!showPassword)} />
+          <View style={styles.passwordInput}>
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <View style={styles.iconAction}>
+              <IconAction width={20} height={20} onPress={() => setShowPassword(!showPassword)} />
+            </View>
           </View>
+          <Text style={styles.forgotPasswordText} onPress={handleForgotPassword}>
+            Forgot Password?
+          </Text>
         </View>
-        <Text style={styles.forgotPasswordText} onPress={handleForgotPassword}>
-          Forgot Password?
-        </Text>
+        <View style={styles.buttonContainer}>
+          <Button title="LOGIN" onPress={handleLoginPress} color="white" />
+        </View>
+        <View style={styles.smallButtonContainer}>
+          <Button
+            title="Create an Account"
+            onPress={() => navigation.navigate('Register')}
+            color="blue"
+          />
+        </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <Button title="LOGIN" onPress={handleLoginPress} color="white" />
-      </View>
-      <View style={styles.smallButtonContainer}>
-        <Button
-          title="Create an Account"
-          onPress={() => navigation.navigate('Register')}
-          color="blue"
-        />
-      </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -64,8 +67,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: 'transparent',
     padding: 16,
-    backgroundColor: '#D1DAFF',
+  },
+  background: {
+    flex: 1,
   },
   welcomeText: {
     fontSize: 18,
@@ -82,10 +88,9 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   imageContainer: {
-    marginBottom: 10,
     overflow: 'hidden',
-    marginLeft: 125,
-    elevation: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   inputContainer: {
     marginTop: 24,
